@@ -1,0 +1,10 @@
+#!/bin/bash
+# Rebuild the Brave theme from the new Omarchy colors, drop the single-color
+# policy Omarchy just wrote (it would override the theme), then restart Brave
+# in the background so it loads the new theme (tabs are restored).
+"$HOME/.local/bin/omarchy-web-theme" brave
+conf="${XDG_CONFIG_HOME:-$HOME/.config}/omarchy-web-theme/config"
+[ -f "$conf" ] && . "$conf"
+sudo -n rm -f "${POLICY_FILE:-/etc/brave/policies/managed/color.json}"
+setsid "$HOME/.local/bin/brave-restart" >/dev/null 2>&1 &
+exit 0

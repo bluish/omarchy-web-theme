@@ -1,0 +1,23 @@
+#!/bin/bash
+# Restart the browser gracefully (tabs come back via "Continue where you left
+# off"), then run AFTER_RESTART if set. Used after a theme
+# change, since Chromium browsers only read their theme at startup.
+conf="${XDG_CONFIG_HOME:-$HOME/.config}/omarchy-web-theme/config"
+[ -f "$conf" ] && . "$conf"
+BROWSER_PROCESS=${BROWSER_PROCESS:-^/opt/brave-origin-bin/brave}
+BROWSER_LAUNCH=${BROWSER_LAUNCH:-uwsm-app -- brave-origin}
+
+pgrep -f "$BROWSER_PROCESS" >/dev/null || exit 0
+
+pkill -TERM -f "$BROWSER_PROCESS"
+for _ in $(seq 40); do
+  pgrep -f "$BROWSER_PROCESS" >/dev/null || break
+  sleep 0.5
+done
+
+# Word splitting on purpose: BROWSER_LAUNCH is a command line.
+setsid $BROWSER_LAUNCH >/dev/null 2>&1 &
+if [ -n "${AFTER_RESTART:-}" ]; then
+  sleep 5
+  sh -c "$AFTER_RESTART"
+fi

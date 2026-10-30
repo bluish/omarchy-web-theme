@@ -1,0 +1,12 @@
+# ~/.config/omarchy-web-theme/config (shell syntax). Every line is optional;
+# these are the defaults, which match Omarchy's Brave Origin.
+
+# pgrep/pkill pattern for the browser's main process, and how to start it.
+BROWSER_PROCESS='^/opt/brave-origin-bin/brave'
+BROWSER_LAUNCH='uwsm-app -- brave-origin'
+
+# The colour policy Omarchy writes, which would override the theme.
+POLICY_FILE=/etc/brave/policies/managed/color.json
+
+# A command to run once the browser is back, such as re-hiding web apps.
+AFTER_RESTART=

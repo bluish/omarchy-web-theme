@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Omarchy Web Apps Theme",
+  "version": "1.0",
+  "description": "Paint WhatsApp Web and Discord with the current Omarchy theme colors (live)",
+  "content_scripts": [
+    {
+      "matches": ["https://web.whatsapp.com/*", "https://discord.com/*"],
+      "js": ["discord-vars.js", "theme.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["colors.json"],
+      "matches": ["https://web.whatsapp.com/*", "https://discord.com/*"]
+    }
+  ]
+}

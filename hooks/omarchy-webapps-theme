@@ -1,0 +1,3 @@
+#!/bin/bash
+# WhatsApp/Discord pick up the new colors live from this file.
+"$HOME/.local/bin/omarchy-web-theme" webapps
